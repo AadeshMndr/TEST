@@ -1,0 +1,32 @@
+.edit {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: space-evenly;
+}
+
+.editOption {
+  padding: 50px;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.edit a {
+  text-decoration: none;
+}
+
+.edit img {
+  width: 100px;
+  height: 100px;
+  background-color: yellow;
+  border-radius: 1000px;
+  display: inline;
+  border: 2px solid yellow;
+  margin-right: 10px;
+}
+
+.editSpan {
+  font-size: 1.7rem;
+}

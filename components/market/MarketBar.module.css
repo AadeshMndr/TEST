@@ -1,0 +1,42 @@
+.marketBar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(24, 24, 24);
+    font-size: 1.8rem;
+    padding: 10px;
+}
+
+.marketBar h1{
+    flex-grow: 3;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.backButton{
+    background-color: yellow;
+    border: none;
+    border-radius: 1000px;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid yellow;
+}
+
+.marketBar a:hover, .marketBar a.active{
+    font-weight: bold;
+    color: yellow;
+}
+
+.marketBar a{
+    text-decoration: none;
+    color: yellow;
+}
+
+.title a{
+    overflow-wrap: anywhere;
+}
+
+.title{
+    text-align: center;
+}

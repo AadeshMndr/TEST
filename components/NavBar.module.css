@@ -1,0 +1,49 @@
+.navBar{
+    padding: 10px;
+    background-color: black;
+    color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navBar h1{
+    font-size: 3rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.navBar a{
+    text-decoration: none;
+    color: yellow;
+}
+
+.navBar a:hover, .navBar a.active{
+    font-weight: bold;
+    color: yellow;
+}
+
+.links{
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 50%;
+    width: auto;
+    max-width: 75%;
+}
+
+@media screen and (orientation: portrait) {
+    .links{
+        font-size: 1rem;
+    } 
+
+    .navBar h1{
+        font-size: 2rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+}

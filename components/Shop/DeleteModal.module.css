@@ -1,0 +1,69 @@
+.modal{
+    background-color: white;
+    color: black;
+    margin-top: 40%;
+    padding: 0;
+    outline: 2px solid rgb(255, 102, 0);
+    padding-bottom: 5px;
+    box-shadow: 0 0 8px rgb(255, 102, 0);
+}
+
+.modal h1{
+    background-color: black;
+    color: rgb(255, 102, 0);
+    margin: 0;
+    text-align: center;
+    border: 2px solid black;
+}
+
+.modal p{
+    margin: 20px 5px 20px 5px;
+    color: black;
+    text-align: justify;
+}
+
+.buttonBox{
+    display: flex;
+    margin-right: 5px;
+    margin-left: auto;
+    width: 55%;
+    align-items: center;
+    gap: 5%;
+    justify-content: flex-end;
+}
+
+.buttonBox button{
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(255, 102, 0);
+    color: black;
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+}
+
+.buttonBox button:active{
+    transform: scale(0.9, 0.9);
+}
+
+@media screen and (orientation: landscape){
+    .modal{
+        margin-top: 15%;
+        font-size: 1.5rem;
+    }
+
+    .modal p{
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .buttonBox button{
+        font-size: 1.5rem;
+        border-radius: 20px;
+        padding: 10px 20px 10px 20px;
+    }
+
+    .buttonBox{
+        margin-bottom: 5px;
+        margin-right: 10px;
+    }
+}

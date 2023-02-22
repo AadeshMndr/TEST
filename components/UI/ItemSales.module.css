@@ -1,0 +1,61 @@
+.controls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+}
+
+.controls button{
+    background-color: yellow;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 20px 5px 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.controls button:active{
+    transform: scale(0.95, 0.95);
+}
+
+.amountBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quantity{
+    font-size: 1.5rem;
+}
+
+.total{
+    margin-top: 8px;
+    text-align: right;
+}
+
+.card{
+    margin-top: 7px;
+    margin-bottom: 14px;
+}
+
+.amountBoxNonActive{
+    display: block;
+    text-align: center;
+}
+
+@media screen and (orientation: landscape){
+    .controls{
+        width: 17%;
+    }
+
+    .controls button{
+        padding: 5px 25px 5px 25px;
+        font-size: 2rem;
+    }
+
+    .card{
+        padding: 20px;
+    }
+
+}
