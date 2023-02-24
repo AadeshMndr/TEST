@@ -12,7 +12,7 @@ import { ShopActions } from "@/store/ShopSlice";
 const editItemPage = ({ data }) => {
   const router = useRouter();
   const { error, loading, fetcher } = useHTTP();
-  const { itemsInfo, sections }= useSelector((state) => state.shop);
+  const { items_Info: itemsInfo, sections }= useSelector((state) => state.shop);
   const selectedSection_Name = useSelector(
     (state) => state.shop.selectedSection_Name
   );
