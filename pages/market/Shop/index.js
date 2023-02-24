@@ -16,6 +16,7 @@ const Shop = ({ data }) => {
     let newData = data;
 
     if (sections !== []){
+      console.log(sections);
       newData = sections;
     }
 
