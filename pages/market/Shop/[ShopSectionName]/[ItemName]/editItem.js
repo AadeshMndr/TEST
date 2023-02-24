@@ -12,7 +12,7 @@ import { ShopActions } from "@/store/ShopSlice";
 const editItemPage = ({ data }) => {
   const router = useRouter();
   const { error, loading, fetcher } = useHTTP();
-  const itemsInfo = useSelector((state) => state.shop.items_Info);
+  const { itemsInfo, sections }= useSelector((state) => state.shop);
   const selectedSection_Name = useSelector(
     (state) => state.shop.selectedSection_Name
   );
@@ -21,7 +21,13 @@ const editItemPage = ({ data }) => {
   );
 
   useEffect(() => {
-    dispatch(ShopActions.replaceSections(data));
+    let newData = data;
+
+    if (sections.length > 0){
+      newData = sections;
+    }
+
+    dispatch(ShopActions.replaceSections(newData));
   }, []);
 
   const dispatch = useDispatch();

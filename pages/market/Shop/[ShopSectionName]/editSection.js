@@ -19,7 +19,13 @@ const EditSection = ({ data }) => {
   );
 
   useEffect(() => {
-    dispatch(ShopActions.replaceSections(data));
+    let newData = data;
+
+    if (sections.length > 0){
+      newData = sections;
+    }
+
+    dispatch(ShopActions.replaceSections(newData));
   }, []);
 
 

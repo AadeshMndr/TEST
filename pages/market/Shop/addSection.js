@@ -15,7 +15,13 @@ const AddSectionPage = ({ data }) => {
   const { error, loading, fetcher } = useHTTP();
 
   useEffect(() => {
-    dispatch(ShopActions.replaceSections(data));
+    let newData = data;
+
+    if (sections.length > 0){
+      newData = sections;
+    }
+
+    dispatch(ShopActions.replaceSections(newData));
   }, []);
 
   const listOfNames = sections.map((section) => section.name);

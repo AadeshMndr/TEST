@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getAll } from "@/components/hooks/use-DB";
 import Item from "@/components/Shop/Item";
@@ -8,9 +8,16 @@ import MarketLayout from "@/layouts/MarketLayout";
 
 const ItemPage = ({ data }) => {
   const dispatch = useDispatch();
+  const { sections } = useSelector( (state) => state.shop );
 
   useEffect(() => {
-    dispatch(ShopActions.replaceSections(data));
+    let newData = data;
+
+    if (sections.length > 0){
+      newData = sections;
+    }
+
+    dispatch(ShopActions.replaceSections(newData));
   }, []);
 
   return <Item />;

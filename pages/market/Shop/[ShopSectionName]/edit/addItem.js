@@ -14,10 +14,17 @@ const AddItemPage = ({ data }) => {
     const { error, loading, fetcher } = useHTTP();
     const itemsInfo = useSelector((state) => state.shop.items_Info);
     const selectedSection_Name = useSelector( (state) => state.shop.selectedSection_Name );
+    const { sections } = useSelector( (state) => state.shop );
     const listOfNames = itemsInfo.filter( ({ sectionName }) => sectionName === selectedSection_Name ).map( ({ itemName }) => itemName );
 
-    useEffect( () => {
-        dispatch(ShopActions.replaceSections(data));
+    useEffect(() => {
+      let newData = data;
+  
+      if (sections.length > 0){
+        newData = sections;
+      }
+  
+      dispatch(ShopActions.replaceSections(newData));
     }, []);
 
     const storeItem = async (data) => {

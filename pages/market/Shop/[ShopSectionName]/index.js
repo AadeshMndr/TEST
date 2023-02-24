@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ShopActions } from "@/store/ShopSlice";
 import useShop from "@/components/hooks/use-shop";
@@ -9,10 +9,17 @@ import ShopList from "@/components/Shop/ShopList";
 
 const Section = ({ data }) => {
     const { section } = useShop();
+    const { sections } = useSelector( (state) => state.shop );
     const dispatch = useDispatch();
 
-    useEffect( () => {
-        dispatch(ShopActions.replaceSections(data));
+    useEffect(() => {
+      let newData = data;
+  
+      if (sections.length > 0){
+        newData = sections;
+      }
+  
+      dispatch(ShopActions.replaceSections(newData));
     }, []);
 
     return(
