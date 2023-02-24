@@ -14,7 +14,7 @@ const Shop = ({ data }) => {
 
   useEffect(() => {
     dispatch(ShopActions.replaceSections(data));
-  }, []);
+  }, [data]);
 
   return (
     <div>
