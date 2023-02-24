@@ -15,8 +15,7 @@ const Shop = ({ data }) => {
   useEffect(() => {
     let newData = data;
 
-    if (sections !== []){
-      console.log(sections);
+    if (sections.length > 0){
       newData = sections;
     }
 
@@ -64,3 +63,4 @@ export const getStaticProps = async () => {
     revalidate: 1,
   };
 };
+
