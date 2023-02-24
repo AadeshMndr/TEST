@@ -6,7 +6,7 @@ import ItemSales from "../UI/ItemSales";
 import styles from "./Item.module.css";
 
 const Item = () => {
-  let { item } = useShop();
+  const { item } = useShop();
 
   const date = new Date(item.date);
 

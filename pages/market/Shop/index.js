@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import accessDB from "@/components/hooks/use-DB";
+import { getAll } from "@/components/hooks/use-DB";
 import MarketLayout from "@/layouts/MarketLayout";
 import { ShopActions } from "@/store/ShopSlice";
 
@@ -13,28 +13,6 @@ const Shop = ({ data }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // let data = [];
-
-    // const getSections = async () => {
-    //   try{
-    //     const response = await fetch("/api/Shop");
-
-    //     if (!response.ok){
-    //       throw new Error("Couldn't fetch!");
-    //     }
-        
-    //     data = await response.json();
-        
-    //   } catch (err) {
-    //     console.log(err.message);
-    //   }
-
-    //   return data;
-    // }
-
-    // getSections().then( (data) => {
-    //   dispatch(ShopActions.replaceSections(data));
-    // } );
     dispatch(ShopActions.replaceSections(data));
   }, []);
 
@@ -42,42 +20,40 @@ const Shop = ({ data }) => {
     <div>
       <h1 style={{ marginLeft: "20px" }}>Welcome to the Shop!</h1>
       <OptionsContainer>
-        {sections.map(({ name, image, _id }) => (
+        {sections.map(({ name, image, _id=Math.random() }) => (
           <SectionBox
             key={_id}
             title={name}
             image={image}
             href={`/market/Shop/${name}`}
-            />
+          />
         ))}
       </OptionsContainer>
     </div>
   );
-}
+};
 
-Shop.Layout = MarketLayout; 
+Shop.Layout = MarketLayout;
 
 export default Shop;
 
 
-
+//server-side-code
 export const getStaticProps = async () => {
 
-  const data = await accessDB({
+  const sections = await getAll({
     DB: "Shop",
     collection: "sections",
-    data: null,
-    action: sectionGetter,
   });
 
   return {
     props: {
-      data: data.map( (section) => ({...section, _id: section._id.toString()}) )
-    }
+      data: sections.map((section) => ({
+        ...section,
+        _id: section._id.toString(),
+      })),
+    },
+
+    revalidate: 1,
   };
 };
-
-const sectionGetter = async (data, sections) => {
-  let result = await sections.find().toArray();
-  return result;
-}

@@ -11,11 +11,11 @@ const useShop = () => {
     let section = {name: "", image: "", items: []};
     let item = {name: "", image: "", price: "", description: "", date: ""};
 
-    if (sectionName){
+    if (sectionName && sections.length > 0){
         section = sections.filter( (section) => section.name === sectionName )[0];
     }
 
-    if (itemName){
+    if (itemName && section.items.length > 0){
         item = section.items.filter( (item) => item.name === itemName )[0];
     }
 

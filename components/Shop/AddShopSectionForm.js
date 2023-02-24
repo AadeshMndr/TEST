@@ -16,9 +16,13 @@ const AddShopSectionForm = ({
   listOfNonRepeatableItems: listOfNames,
   type,
   deleteSection: removeSection,
+  isSending,
+  isEditing,
 }) => {
   const [modal, setModal] = useState(false);
-  const selectedSection_Name = useSelector( (state) => state.shop.selectedSection_Name );
+  const selectedSection_Name = useSelector(
+    (state) => state.shop.selectedSection_Name
+  );
 
   const {
     value: name,
@@ -28,12 +32,14 @@ const AddShopSectionForm = ({
     touchField: touchName,
     reset: resetName,
     taken: nameTaken,
+    toggleEditting: editingName,
   } = useInput("name", defaultName, listOfNames);
 
   const {
     value: image,
     updateValue: updateImage,
     reset: resetImage,
+    toggleEditting: editingImage,
   } = useInput("image", defaultImage);
 
   const formIsValid = nameIsValid;
@@ -58,7 +64,7 @@ const AddShopSectionForm = ({
   const deleteSection = () => {
     toggleModal();
     removeSection();
-  }
+  };
 
   return (
     <Fragment>
@@ -84,8 +90,12 @@ const AddShopSectionForm = ({
               type="text"
               id="name"
               onChange={updateName}
-              onBlur={touchName}
+              onBlur={() => {
+                touchName();
+                editingName();
+              }}
               value={name}
+              onFocus={editingName}
             />
           </div>
           {nameShowsError && !nameTaken && (
@@ -96,7 +106,14 @@ const AddShopSectionForm = ({
           )}
           <div>
             <label htmlFor="price">Image: </label>
-            <input type="url" id="image" onChange={updateImage} value={image} />
+            <input
+              type="url"
+              id="image"
+              onChange={updateImage}
+              value={image}
+              onFocus={editingImage}
+              onBlur={editingImage}
+            />
           </div>
           <div className={styles.buttonBox}>
             {type === "Edit" && (
@@ -113,7 +130,7 @@ const AddShopSectionForm = ({
               disabled={!formIsValid}
               className={!formIsValid ? styles.disabled : styles.abled}
             >
-              {type}
+              {isSending ? "adding..." : isEditing ? "editing..." : type}
             </button>
           </div>
         </form>

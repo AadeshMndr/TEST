@@ -19,6 +19,7 @@ const AddItemForm = ({
   defaultImage = "",
   defaultDate = "",
   deleteItem: removeItem,
+  isLoading,
 }) => {
   const [modal, setModal] = useState(false);
   const selectedItem_Name = useSelector( (state) => state.shop.selectedItem_Name );
@@ -31,6 +32,7 @@ const AddItemForm = ({
     touchField: touchName,
     taken: nameTaken,
     reset: resetName,
+    toggleEditting: editingName,
   } = useInput("name", defaultName, listOfNames);
 
   const {
@@ -40,12 +42,14 @@ const AddItemForm = ({
     updateValue: updatePrice,
     touchField: touchPrice,
     reset: resetPrice,
+    toggleEditting: editingPrice,
   } = useInput("price", defaultPrice);
 
   const {
     value: image,
     updateValue: updateImage,
     reset: resetImage,
+    toggleEditting: editingImage,
   } = useInput("image", defaultImage);
 
   const {
@@ -55,12 +59,14 @@ const AddItemForm = ({
     updateValue: updateDate,
     touchField: touchDate,
     reset: resetDate,
+    toggleEditting: editingDate,
   } = useInput("date", defaultDate);
 
   const {
     value: description,
     updateValue: updateDescription,
     reset: resetDescription,
+    toggleEditting: editingDescription,
   } = useInput("description", defaultDescription);
 
   const formIsValid = nameIsValid && priceIsValid && dateIsValid;
@@ -116,6 +122,7 @@ const AddItemForm = ({
               onChange={updateName}
               onBlur={touchName}
               value={name}
+              onFocus={editingName}
             />
           </div>
           {nameShowsError && !nameTaken && (
@@ -133,6 +140,7 @@ const AddItemForm = ({
               onChange={updatePrice}
               onBlur={touchPrice}
               value={price}
+              onFocus={editingPrice}
             />
           </div>
           {priceShowsError && (
@@ -151,6 +159,7 @@ const AddItemForm = ({
               onChange={updateDate}
               onBlur={touchDate}
               value={date}
+              onFocus={editingDate}
             />
           </div>
           {dateShowsError && (
@@ -164,6 +173,7 @@ const AddItemForm = ({
               rows={5}
               onChange={updateDescription}
               value={description}
+              onFocus={editingDescription}
             />
           </div>
           <div className={styles.buttonBox}>
@@ -181,7 +191,7 @@ const AddItemForm = ({
               disabled={!formIsValid}
               className={!formIsValid ? styles.disabled : styles.abled}
             >
-              {type}
+              {isLoading ? type === "Edit" ? "editing..." : "adding..." :  type}
             </button>
           </div>
         </form>

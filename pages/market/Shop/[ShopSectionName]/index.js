@@ -1,9 +1,19 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import { ShopActions } from "@/store/ShopSlice";
 import useShop from "@/components/hooks/use-shop";
+import { getAll } from "@/components/hooks/use-DB";
 import MarketLayout from "@/layouts/MarketLayout";
 import ShopList from "@/components/Shop/ShopList";
 
-const Section = () => {
+const Section = ({ data }) => {
     const { section } = useShop();
+    const dispatch = useDispatch();
+
+    useEffect( () => {
+        dispatch(ShopActions.replaceSections(data));
+    }, []);
 
     return(
         <div>
@@ -15,3 +25,38 @@ const Section = () => {
 Section.Layout = MarketLayout;
 
 export default Section;
+
+//server-side-code
+export const getStaticProps = async () => {
+
+    const sections = await getAll({
+      DB: "Shop",
+      collection: "sections",
+    });
+  
+    return {
+      props: {
+        data: sections.map((section) => ({
+          ...section,
+          _id: section._id.toString(),
+        })),
+      },
+  
+      revalidate: 1,
+    };
+  };
+
+export const getStaticPaths = async () => {
+    const sections = await getAll({
+        DB: "Shop",
+        collection: "sections",
+      });
+
+    const paths = sections.map( (section) => ({params: { ShopSectionName: section.name }}) );
+
+    return({
+        fallback: false,
+        paths,
+    }); 
+}
+  

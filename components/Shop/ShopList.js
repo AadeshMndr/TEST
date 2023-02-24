@@ -10,7 +10,7 @@ const ShopList = ({ items }) => {
 
     return(
         <ul className={styles.list}>
-            {items.map( (item) => <li key={item.id}><Link href={`/market/Shop/${router.query.ShopSectionName}/${item.name}`} className={styles.link}><ShopItem {...item} /></Link></li> )}
+            {items.map( (item) => <li key={item.id || Math.random()}><Link href={`/market/Shop/${router.query.ShopSectionName}/${item.name}`} className={styles.link}><ShopItem {...item} /></Link></li> )}
         </ul>
     );
 }

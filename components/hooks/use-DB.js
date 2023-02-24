@@ -26,3 +26,25 @@ const accessDB = async ({ DB, collection, action, data }) => {
 };
 
 export default accessDB;
+
+export const getAll = async ({ DB, collection }) => {
+
+  const action = async (data, collection) => {
+    let result = await collection.find().toArray();
+    return result;
+  }
+
+  let result = [];
+  
+  try {
+    result = await accessDB( {DB, collection, data: null, action} );
+
+  } catch (err) {
+    console.log(err);
+  }
+
+  return result;
+}
+
+
+
