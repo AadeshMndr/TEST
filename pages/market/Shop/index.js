@@ -13,7 +13,13 @@ const Shop = ({ data }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(ShopActions.replaceSections(sections || data));
+    let newData = data;
+
+    if (sections !== []){
+      newData = sections;
+    }
+
+    dispatch(ShopActions.replaceSections(newData));
   }, []);
 
   return (
