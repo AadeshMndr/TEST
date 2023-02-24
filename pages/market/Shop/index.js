@@ -13,8 +13,8 @@ const Shop = ({ data }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(ShopActions.replaceSections(data));
-  }, [data]);
+    dispatch(ShopActions.replaceSections(sections || data));
+  }, []);
 
   return (
     <div>
