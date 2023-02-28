@@ -23,7 +23,7 @@ const reqHandler = async (req, res) => {
         action: itemPutter,
       });
 
-      res.json(204).json("edited!");
+      res.status(204).json("edited!");
 
     } else if (req.method === "DELETE") {
         
@@ -34,7 +34,7 @@ const reqHandler = async (req, res) => {
         action: itemDeleter,
       });
 
-      res.json(204).json("deleted!");
+      res.status(204).json("deleted!");
 
     }
   } catch (err) {

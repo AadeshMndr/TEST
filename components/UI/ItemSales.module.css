@@ -2,17 +2,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 40%;
+    width: 42%;
 }
 
 .controls button{
-    background-color: yellow;
     color: black;
     border: none;
     border-radius: 10px;
     padding: 5px 20px 5px 20px;
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+.abled{
+    background-color: yellow;
+    cursor: pointer;
+}
+
+.disabled{
+    background-color: rgb(122, 122, 0);
+    cursor: not-allowed;
 }
 
 .controls button:active{

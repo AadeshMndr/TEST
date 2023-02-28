@@ -1,0 +1,12 @@
+.list{
+    padding: 0;
+    list-style-type: none;
+    list-style-position: outside;
+    margin-top: 20px;
+}
+
+@media screen and (orientation: landscape){
+    .list{
+        margin-top: 125px;
+    }
+}

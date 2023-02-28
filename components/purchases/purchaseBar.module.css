@@ -1,0 +1,55 @@
+.section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(24, 24, 24);
+    font-size: 1.8rem;
+    padding: 10px;
+    width: 100%;
+}
+
+.backButton{
+    background-color: yellow;
+    border: none;
+    border-radius: 1000px;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border: 2px solid yellow;
+}
+
+.loading{
+    background-color: inherit;
+    border: none;
+    border-radius: 1000px;
+    width: 2rem;
+    height: 2rem;
+    animation: spin 0.5s ease-out;
+    animation-iteration-count: infinite;
+}
+
+.button{
+    border: none;
+    border-radius: 15px;
+    background-color: yellow;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 5px 10px 5px 10px;
+}
+
+.button:active{
+    transform: scale(0.95, 0.95);
+}
+
+.loading{
+    font-size: 0.5rem;
+}
+
+@keyframes spin{
+    0% { transform: rotateZ(0deg); }
+    25% { transform: rotateZ(90deg); }
+    50% { transform: rotateZ(180deg); }
+    75% { transform: rotateZ(270deg); }
+    100% { transform: rotateZ(360deg); }
+}

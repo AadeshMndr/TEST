@@ -7,6 +7,7 @@ import { getAll } from "@/components/hooks/use-DB";
 import MarketLayout from "@/layouts/MarketLayout";
 import AddShopSectionForm from "@/components/Shop/AddShopSectionForm";
 import { ShopActions } from "@/store/ShopSlice";
+import { usersActions } from "@/store/UsersSlice";
 
 const EditSection = ({ data }) => {
   const router = useRouter();
@@ -43,6 +44,7 @@ const EditSection = ({ data }) => {
   }
 
   const updateData = async (data) => {
+    dispatch(usersActions.reevaluatePurchasedSections( {sectionName: selectedSection_Name, newSectionName: data.name } ))
     dispatch(ShopActions.updateSection(data));
     
     await fetcher({
@@ -118,7 +120,7 @@ export const getStaticPaths = async () => {
   }));
 
   return {
-    fallback: false,
+    fallback: "blocking",
     paths,
   };
 };

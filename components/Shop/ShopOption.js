@@ -1,11 +1,13 @@
 import OptionsBox from "../UI/OptionsBox";
 
+import ShopPIC from "@/utils/shopIcon.png";
+
 const ShopOption = () => {
   return (
     <OptionsBox
       href="/market/Shop"
       title="Shop"
-      image="https://www.iconpacks.net/icons/2/free-store-icon-2017-thumb.png"
+      image={ShopPIC}
       description="Our Daily General Store"
     />
   );

@@ -1,5 +1,5 @@
 .form {
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 10px;
 }
 
@@ -38,18 +38,42 @@
 }
 
 .buttonBox button{
-    font-size: 1.5rem;
     padding: 5px 15px 5px 15px;
-    background-color: yellow;
     color: black;
     border: none;
     border-radius: 15px;
     font-weight: bold;
-    cursor: pointer;
+}
+
+.error_message{
+  color: red;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.disabled{
+  font-size: 1.5rem;
+  background-color: rgb(122, 122, 0);
+  cursor: not-allowed;
+}
+
+.abled{
+  font-size: 1.5rem;
+  background-color: yellow;
+  cursor: pointer;
+}
+
+.loading{
+  font-size: 1.1rem;
 }
 
 @media screen and (orientation: landscape){
     .buttonBox{
         width: 25%;
     }
+
+    .form {
+      font-size: 2rem;
+    }
+    
 }

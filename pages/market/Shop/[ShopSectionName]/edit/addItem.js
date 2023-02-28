@@ -12,9 +12,8 @@ const AddItemPage = ({ data }) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const { error, loading, fetcher } = useHTTP();
-    const itemsInfo = useSelector((state) => state.shop.items_Info);
+    const { items_Info: itemsInfo, sections } = useSelector((state) => state.shop);
     const selectedSection_Name = useSelector( (state) => state.shop.selectedSection_Name );
-    const { sections } = useSelector( (state) => state.shop );
     const listOfNames = itemsInfo.filter( ({ sectionName }) => sectionName === selectedSection_Name ).map( ({ itemName }) => itemName );
 
     useEffect(() => {
@@ -82,7 +81,7 @@ export const getStaticPaths = async () => {
     const paths = sections.map( (section) => ({params: { ShopSectionName: section.name }}) );
 
     return({
-        fallback: false,
+        fallback: "blocking",
         paths,
     }); 
 }

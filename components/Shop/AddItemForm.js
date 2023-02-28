@@ -190,6 +190,7 @@ const AddItemForm = ({
               type="submit"
               disabled={!formIsValid}
               className={!formIsValid ? styles.disabled : styles.abled}
+              style={isLoading ? {fontSize: "1.2rem"} : {}}
             >
               {isLoading ? type === "Edit" ? "editing..." : "adding..." :  type}
             </button>

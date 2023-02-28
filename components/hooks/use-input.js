@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useInput = (type, defaultValue = "", list) => {
+const useInput = (type, defaultValue = "", list, isLogin) => {
   const [value, setValue] = useState(defaultValue);
   const [touched, setTouched] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -14,7 +14,12 @@ const useInput = (type, defaultValue = "", list) => {
     taken = list.some((name) => name === value);
   }
 
-  const IsValid = validator(type, value) && !taken;
+  let IsValid = false;
+  if (type === "username" && isLogin){
+    IsValid = validator(type, value) && taken;
+  } else if (type !== "cpassword") {
+    IsValid = validator(type, value) && !taken;
+  }
   const showsError = !IsValid && touched;
 
   const toggleEditting = () => {
@@ -33,14 +38,16 @@ const useInput = (type, defaultValue = "", list) => {
 
   const touchField = () => {
     setTouched(true);
+    setEditing(false);
   };
 
   const reset = () => {
-    setValue("");
+    setEditing(false);
+    setValue(defaultValue);
     setTouched(false);
   };
 
-  return { value, IsValid, showsError, updateValue, touchField, reset, taken, toggleEditting };
+  return { value, IsValid, showsError, updateValue, touchField, reset, taken, toggleEditting, touched, editing, setTouched };
 };
 
 const validator = (type, value) => {
@@ -70,6 +77,12 @@ const validator = (type, value) => {
     // find a better validation later
 
     return true;
+
+  } else if (type === "password"){
+
+    if (value.length < 7){
+      return false;
+    }
   }
 
   return true;

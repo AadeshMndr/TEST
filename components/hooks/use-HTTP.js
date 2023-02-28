@@ -28,6 +28,8 @@ const useHTTP = () => {
         }
 
         setLoading(false);
+
+        return data;
     } 
 
     return { error, loading, fetcher };

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import styles from "./OptionsBox.module.css";
 
@@ -17,7 +18,7 @@ const OptionsBox = ({
       {" "}
       <Link href={href} className={styles.link}>
         <div className={styles.title}>{title}</div>
-        <img src={image} alt={title} className={styles.image} />
+        <Image src={image} alt={title} className={styles.image} />
         <div className={styles.description}>{description}</div>
       </Link>
     </div>

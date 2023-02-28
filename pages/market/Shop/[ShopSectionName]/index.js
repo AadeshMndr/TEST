@@ -9,8 +9,8 @@ import ShopList from "@/components/Shop/ShopList";
 
 const Section = ({ data }) => {
     const { section } = useShop();
-    const { sections } = useSelector( (state) => state.shop );
     const dispatch = useDispatch();
+    const { sections } = useSelector( (state) => state.shop);
 
     useEffect(() => {
       let newData = data;
@@ -62,7 +62,7 @@ export const getStaticPaths = async () => {
     const paths = sections.map( (section) => ({params: { ShopSectionName: section.name }}) );
 
     return({
-        fallback: false,
+        fallback: "blocking",
         paths,
     }); 
 }

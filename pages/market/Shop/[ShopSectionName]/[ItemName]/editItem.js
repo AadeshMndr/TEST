@@ -8,11 +8,12 @@ import useShop from "@/components/hooks/use-shop";
 import MarketLayout from "@/layouts/MarketLayout";
 import AddItemForm from "@/components/Shop/AddItemForm";
 import { ShopActions } from "@/store/ShopSlice";
+import { usersActions } from "@/store/UsersSlice";
 
 const editItemPage = ({ data }) => {
   const router = useRouter();
   const { error, loading, fetcher } = useHTTP();
-  const { items_Info: itemsInfo, sections }= useSelector((state) => state.shop);
+  const { items_Info: itemsInfo, sections } = useSelector((state) => state.shop);
   const selectedSection_Name = useSelector(
     (state) => state.shop.selectedSection_Name
   );
@@ -55,6 +56,7 @@ const editItemPage = ({ data }) => {
   const updateItem = async (data) => {
     let payload = { ...data, id: Math.random() }
 
+    dispatch(usersActions.reevaluatePurchasedItems({name: selectedItem_Name, sectionName: selectedSection_Name, item: payload }));
     dispatch(ShopActions.updateItem(payload));
 
     await fetcher({
@@ -66,7 +68,7 @@ const editItemPage = ({ data }) => {
       },
     });
 
-    router.push(`/market/Shop/${selectedSection_Name}/${selectedItem_Name}`);
+    router.push(`/market/Shop/${selectedSection_Name}/${data.name}`);
   };
 
   const deleteItem = async () => {
@@ -141,7 +143,7 @@ export const getStaticPaths = async () => {
   });
 
   return {
-    fallback: false,
+    fallback: "blocking",
     paths,
   };
 };

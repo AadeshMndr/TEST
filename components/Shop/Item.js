@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 
+import { usePurchases } from "../hooks/use-users";
 import useShop from "@/components/hooks/use-shop";
 import ItemSales from "../UI/ItemSales";
 
@@ -7,8 +8,23 @@ import styles from "./Item.module.css";
 
 const Item = () => {
   const { item } = useShop();
+  const { getThisWeeksPurchases, getTodaysPurchases } = usePurchases();
 
   const date = new Date(item.date);
+
+  const todaysQuantity = getTodaysPurchases()
+    .filter((purchase) => purchase.name === item.name)
+    .map((purchase) => ({
+      price: purchase.item.price,
+      amount: purchase.amount,
+    }));
+
+  const thisWeeksQuantities = getThisWeeksPurchases()
+    .filter((purchase) => purchase.name === item.name)
+    .map((purchase) => ({
+      price: purchase.item.price,
+      amount: purchase.amount,
+    }));
 
   return (
     <Fragment>
@@ -22,15 +38,15 @@ const Item = () => {
       </p>
       <div className={styles.salesBox}>
         <span className={styles.time}>Today</span>
-        <ItemSales price={item.price} amount={1} />
+        <ItemSales quantity={todaysQuantity} />
       </div>
       <div className={styles.salesBox}>
         <span className={styles.time}>This Week</span>
-        <ItemSales price={item.price} amount={7} noControls={true} />
+        <ItemSales quantity={thisWeeksQuantities} noControls={true} />
       </div>
       <div className={styles.salesBox}>
         <span className={styles.time}>This Month</span>
-        <ItemSales price={item.price} amount={31} noControls={true} />
+        <ItemSales quantity={[{ price: 35, amount: 31 }]} noControls={true} />
       </div>
     </Fragment>
   );
