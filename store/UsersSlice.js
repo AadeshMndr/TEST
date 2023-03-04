@@ -7,6 +7,7 @@ const usersSlice = createSlice({
     currentUser: "none",
     purchases: [],
     loadingData: false,
+    allData: [],
   },
   reducers: {
     replaceUsers(state, action) {
@@ -171,6 +172,9 @@ const usersSlice = createSlice({
     },
     setLoadingData(state, action) {
       state.loadingData = action.payload;
+    },
+    addToAllData(state, action){
+      state.allData = [...state.allData, ...action.payload];
     },
   },
 });

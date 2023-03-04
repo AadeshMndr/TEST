@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import useHTTP from "@/components/hooks/use-HTTP";
 import AllTimePurchases from "@/components/purchases/AllTimePurchases";
@@ -27,9 +27,9 @@ const months = [
 const Home = ({ data }) => {
   const { username, firstName } = useUsers();
   const router = useRouter();
-  const [allData, setAllData] = useState([]);
   const [loadingCount, setLoadingCount] = useState(0);
-  const { fetcher } = useHTTP()
+  const { fetcher } = useHTTP();
+  const  { allData } = useSelector( (state) => state.users );
 
   const dispatch = useDispatch();
 
@@ -48,7 +48,6 @@ const Home = ({ data }) => {
   }, []);
 
   useEffect(() => {
-    let allTimeData = [];
 
     if (username && username !== "none") {
       months.forEach((month) => {
@@ -71,15 +70,9 @@ const Home = ({ data }) => {
             },
           });
 
-          console.log("Individual Data: ", data);
-
-          allTimeData = [...allTimeData, ...data];
-
-          console.log("Grouped Data", allTimeData);
-
           setLoadingCount((preState) => preState + 1);
 
-          setAllData(allTimeData);
+          dispatch(usersActions.addToAllData(data));
         };
 
         postOneMonthsData();
