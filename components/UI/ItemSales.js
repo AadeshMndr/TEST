@@ -52,6 +52,7 @@ const ItemSales = ({ quantity, noControls = false }) => {
         name: selectedItem_Name,
         sectionName: selectedSection_Name,
         purchasedBy: username,
+        item,
       })
     );
   };
@@ -80,8 +81,8 @@ const ItemSales = ({ quantity, noControls = false }) => {
           </div>
         )}
         <div className={styles.quantity}>
-          <span>Rs. {diffQuantitySet.length > 0 ? diffQuantitySet.map(({ price }) => price) : item.price} </span> 
-          <span>x {diffQuantitySet.length > 0 ? diffQuantitySet.map(({ amount }) => amount) : 0}</span>
+          <span>Rs. {diffQuantitySet.length > 0 ? diffQuantitySet.map(({ price }) => price).join(", ") : item.price} </span> 
+          <span>x {diffQuantitySet.length > 0 ? diffQuantitySet.map(({ amount }) => amount).join(", ") : 0}</span>
         </div>
       </div>
       <div className={styles.total}>

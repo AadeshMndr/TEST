@@ -8,7 +8,7 @@ import styles from "./Item.module.css";
 
 const Item = () => {
   const { item } = useShop();
-  const { getThisWeeksPurchases, getTodaysPurchases } = usePurchases();
+  const { getThisWeeksPurchases, getTodaysPurchases, getThisMonthsPurchases } = usePurchases();
 
   const date = new Date(item.date);
 
@@ -20,6 +20,13 @@ const Item = () => {
     }));
 
   const thisWeeksQuantities = getThisWeeksPurchases()
+    .filter((purchase) => purchase.name === item.name)
+    .map((purchase) => ({
+      price: purchase.item.price,
+      amount: purchase.amount,
+    }));
+
+  const thisMonthsQuantities = getThisMonthsPurchases()
     .filter((purchase) => purchase.name === item.name)
     .map((purchase) => ({
       price: purchase.item.price,
@@ -46,7 +53,7 @@ const Item = () => {
       </div>
       <div className={styles.salesBox}>
         <span className={styles.time}>This Month</span>
-        <ItemSales quantity={[{ price: 35, amount: 31 }]} noControls={true} />
+        <ItemSales quantity={thisMonthsQuantities} noControls={true} />
       </div>
     </Fragment>
   );

@@ -4,7 +4,7 @@
     justify-content: space-between;
     background-color: rgb(24, 24, 24);
     font-size: 1.8rem;
-    padding: 10px;
+    padding: 10px 15px 10px 10px;
     width: 100%;
 }
 
@@ -16,16 +16,6 @@
     width: 2rem;
     height: 2rem;
     border: 2px solid yellow;
-}
-
-.loading{
-    background-color: inherit;
-    border: none;
-    border-radius: 1000px;
-    width: 2rem;
-    height: 2rem;
-    animation: spin 0.5s ease-out;
-    animation-iteration-count: infinite;
 }
 
 .button{
@@ -46,10 +36,8 @@
     font-size: 0.5rem;
 }
 
-@keyframes spin{
-    0% { transform: rotateZ(0deg); }
-    25% { transform: rotateZ(90deg); }
-    50% { transform: rotateZ(180deg); }
-    75% { transform: rotateZ(270deg); }
-    100% { transform: rotateZ(360deg); }
+@media screen and (orientation: landscape) {
+    .button{
+        margin-right: 20px;
+    }
 }

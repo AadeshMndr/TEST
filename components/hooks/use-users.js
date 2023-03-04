@@ -57,6 +57,25 @@ export const usePurchases = () => {
     });
   };
 
+  const getThisMonthsPurchases = () => {
+    const today = new Date();
+    const startOfMonth = new Date(
+      `${new Date().getMonth() + 1}-1-${new Date().getFullYear()}`
+    );
+
+    return purchases.filter((purchase) => {
+      const purchaseDate = new Date(
+        `${purchase.purchasedOn.month}-${purchase.purchasedOn.day}-${purchase.purchasedOn.year}`
+      );
+
+      return (
+        purchase.purchasedBy === currentUser &&
+        purchaseDate >= startOfMonth &&
+        purchaseDate <= today
+      );
+    });
+  };
+
   const reevalDuplication = (purchases) => {
     let diffItems = [];
     purchases.forEach((purchase) => {
@@ -65,7 +84,8 @@ export const usePurchases = () => {
           (item) =>
             purchase.name === item.name &&
             purchase.sectionName === item.sectionName &&
-            purchase.paid === item.paid
+            purchase.paid === item.paid &&
+            purchase.item.price === item.item.price
         )
       ) {
         diffItems.push(purchase);
@@ -80,7 +100,8 @@ export const usePurchases = () => {
         if (
           purchase.name === item.name &&
           purchase.sectionName === item.sectionName &&
-          purchase.paid === item.paid
+          purchase.paid === item.paid &&
+          purchase.item.price === item.item.price
         ) {
           data = { ...purchase, amount: data.amount + purchase.amount };
         }
@@ -92,11 +113,41 @@ export const usePurchases = () => {
     return reevaledData;
   };
 
+  const getSpecificDayPurchase = (fullDate) => {
+    return purchases.filter(
+      (purchase) =>
+        purchase.purchasedBy === currentUser &&
+        purchase.purchasedOn.year === fullDate.getFullYear() &&
+        purchase.purchasedOn.month === fullDate.getMonth() + 1 &&
+        purchase.purchasedOn.day === fullDate.getDate()
+    );
+  }
+
+  const getSpecificWeekPurchase = (startingFullDate) => {
+    let endOfWeek = new Date(startingFullDate.toDateString());
+    endOfWeek.setDate(startingFullDate.getDate() + 7);
+
+    return purchases.filter((purchase) => {
+      const purchaseDate = new Date(
+        `${purchase.purchasedOn.month}-${purchase.purchasedOn.day}-${purchase.purchasedOn.year}`
+      );
+
+      return (
+        purchase.purchasedBy === currentUser &&
+        purchaseDate >= startingFullDate &&
+        purchaseDate <= endOfWeek
+      );
+    });
+  } 
+
   return {
     getTodaysPurchases,
     getThisWeeksPurchases,
     purchases,
     reevalDuplication,
+    getThisMonthsPurchases,
+    getSpecificDayPurchase,
+    getSpecificWeekPurchase,
   };
 };
 

@@ -1,21 +1,19 @@
 import { useDispatch } from "react-redux";
 
-import { usePurchases } from "../hooks/use-users";
 import { usersActions } from "@/store/UsersSlice";
 
 import styles from "./TotalBox.module.css";
 
-const TotalBox = () => {
+const TotalBox = ({ purchases: SPpurchases, control=true }) => {
   const dispatch = useDispatch();
-  const { getTodaysPurchases } = usePurchases();
 
-  const total = getTodaysPurchases().reduce(
+  const total = SPpurchases.reduce(
     (acc, purchase) =>
       acc + Number(purchase.item.price) * Number(purchase.amount),
     0
   );
 
-  const paid = getTodaysPurchases().reduce((acc, purchase) => {
+  const paid = SPpurchases.reduce((acc, purchase) => {
     if (purchase.paid) {
       return acc + Number(purchase.item.price) * Number(purchase.amount);
     } else {
@@ -24,7 +22,7 @@ const TotalBox = () => {
   }, 0);
 
   const payAll = () => {
-    dispatch(usersActions.payAll( {purchases: getTodaysPurchases(), pay: true}));
+    dispatch(usersActions.payAll( {purchases: SPpurchases, pay: true}));
   }
 
   return (
@@ -40,7 +38,7 @@ const TotalBox = () => {
       <div className={styles.left}>
         <span>Left to Pay:</span>
         <span>Rs.{total - paid}</span>
-        {total > paid && <button className={styles.button} onClick={payAll}>Pay</button>}
+        {total > paid && control && <button className={styles.button} onClick={payAll}>Pay</button>}
       </div>
     </div>
   );

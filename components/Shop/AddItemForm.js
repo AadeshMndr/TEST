@@ -79,12 +79,6 @@ const AddItemForm = ({
     }
 
     saveData({ name, price, date, image, description });
-
-    resetName();
-    resetPrice();
-    resetDate();
-    resetImage();
-    resetDescription();
   };
 
   const toggleModal = () => {
@@ -139,7 +133,7 @@ const AddItemForm = ({
               step={1}
               onChange={updatePrice}
               onBlur={touchPrice}
-              value={price}
+              value={price === 0 ? "": price}
               onFocus={editingPrice}
             />
           </div>
@@ -148,7 +142,7 @@ const AddItemForm = ({
           )}
           <div>
             <label htmlFor="price">Image: </label>
-            <input type="url" id="image" onChange={updateImage} value={image} />
+            <input type="url" id="image" onChange={updateImage} value={image} onFocus={editingImage}/>
           </div>
           <div>
             <label htmlFor="date">Date: </label>

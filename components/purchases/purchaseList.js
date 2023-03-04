@@ -2,7 +2,13 @@ import PurchaseItem from "./purchaseItem";
 
 import styles from "./purchaseList.module.css";
 
-const PurchaseList = ({ purchases }) => {
+const PurchaseList = ({ purchases, control, seeOnly }) => {
+  purchases.sort( (a, b) => {
+    let A_Date = new Date(`${a.purchasedOn.month}-${a.purchasedOn.day}-${a.purchasedOn.year}`);
+    let B_Date = new Date(`${b.purchasedOn.month}-${b.purchasedOn.day}-${b.purchasedOn.year}`);
+
+    return A_Date - B_Date;
+  } );
 
     return (
       <ul className={styles.list}>
@@ -18,6 +24,8 @@ const PurchaseList = ({ purchases }) => {
                 saved={purchase.saved}
                 paid={purchase.paid}
                 purchase={purchase}
+                control={control}
+                seeOnly={seeOnly}
               />
           </li>
         ))}

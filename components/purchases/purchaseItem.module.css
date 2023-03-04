@@ -100,6 +100,15 @@
     cursor: not-allowed;
 }
 
+.weekDay{
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: blueviolet;
+    border: none;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+}
+
 @media screen and (orientation: landscape){
     .image{
         border-radius: 10px;
@@ -127,5 +136,9 @@
     .paybtn img{
         width: 40px;
         height: 40px;
+    }
+
+    .weekDay{
+        font-size: 1.5rem;
     }
 }

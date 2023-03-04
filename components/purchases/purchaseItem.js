@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../UI/Card";
 import { usersActions } from "@/store/UsersSlice";
@@ -18,8 +19,38 @@ const PurchaseItem = ({
   saved,
   paid,
   purchase,
+  control,
+  seeOnly,
 }) => {
   const dispatch = useDispatch();
+  const { sections } = useSelector((state) => state.shop);
+  const router = useRouter();
+
+  let purchaseDay = new Date(
+    `${purchase.purchasedOn.month}-${purchase.purchasedOn.day}-${purchase.purchasedOn.year}`
+  )
+    .toDateString()
+    .split(" ")
+    .shift();
+
+  if (seeOnly) {
+    if (purchase.purchasedOn.day === 1) {
+      purchaseDay = `1st`;
+    } else if (purchase.purchasedOn.day === 2) {
+      purchaseDay = `2nd`;
+    } else if (purchase.purchasedOn.day === 3) {
+      purchaseDay = `3rd`;
+    } else {
+      purchaseDay = `${purchase.purchasedOn.day}th`;
+    }
+  }
+
+  let item = {};
+  if (sections.length > 0) {
+    item = sections
+      .filter((section) => section.name === sectionName)[0]
+      .items.filter((item) => item.name === name)[0];
+  }
 
   const addInCart = () => {
     dispatch(
@@ -27,6 +58,7 @@ const PurchaseItem = ({
         name,
         selectedSection_Name: sectionName,
         currentUser: purchasedBy,
+        item,
       })
     );
   };
@@ -36,7 +68,30 @@ const PurchaseItem = ({
   };
 
   const deductFromCart = () => {
-    dispatch(usersActions.deductFromCart({ name, sectionName, purchasedBy }));
+    dispatch(
+      usersActions.deductFromCart({
+        name,
+        sectionName,
+        purchasedBy,
+        item: purchase.item,
+      })
+    );
+  };
+
+  const goTothatDay = () => {
+    if (!seeOnly) {
+      if (
+        new Date(
+          `${purchase.purchasedOn.month}-${purchase.purchasedOn.day}-${purchase.purchasedOn.year}`
+        ).toDateString() === new Date().toDateString()
+      ) {
+        router.push("/myPurchase/Today");
+      } else {
+        router.push(
+          `/myPurchase/${`${purchase.purchasedOn.month}-${purchase.purchasedOn.day}-${purchase.purchasedOn.year}`}`
+        );
+      }
+    }
   };
 
   return (
@@ -63,10 +118,28 @@ const PurchaseItem = ({
         </div>
       </div>
       <div className={styles.controlsContainer}>
-        <div className={styles.controls}>
-          <button onClick={deductFromCart} disabled={paid} className={paid ? styles.disabled : styles.abled}>-</button>
-          <button onClick={addInCart} disabled={paid} className={paid ? styles.disabled : styles.abled}>+</button>
-        </div>
+        {control ? (
+          <div className={styles.controls}>
+            <button
+              onClick={deductFromCart}
+              disabled={paid}
+              className={paid ? styles.disabled : styles.abled}
+            >
+              -
+            </button>
+            <button
+              onClick={addInCart}
+              disabled={paid}
+              className={paid ? styles.disabled : styles.abled}
+            >
+              +
+            </button>
+          </div>
+        ) : (
+          <div className={styles.weekDay} onClick={goTothatDay}>
+            {purchaseDay}
+          </div>
+        )}
         <span className={styles.total}>
           Total Rs.{Number(amount) * Number(price)}
         </span>

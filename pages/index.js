@@ -2,6 +2,7 @@ import { Fragment, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
+import AllTimePurchases from "@/components/purchases/AllTimePurchases";
 import Profile from "@/components/profile";
 import { getAll } from "@/components/hooks/use-DB";
 import useUsers from "@/components/hooks/use-users";
@@ -37,7 +38,8 @@ const Home = ({ data }) => {
 
   return (
     <Fragment>
-      <Profile username={username} logout={logout} firstName={firstName}/>
+      <Profile username={username} logout={logout} firstName={firstName} />
+      <AllTimePurchases />
     </Fragment>
   );
 };

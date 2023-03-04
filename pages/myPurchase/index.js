@@ -5,8 +5,9 @@ const myPurchasePage = () => {
   return (
     <OptionsContainer>
       <TimeBox title={"Today"} href="/myPurchase/Today" type="today" />
-      <TimeBox title={"This Week"} href="/" type="week" />
-      <TimeBox title={"This Month"} href="/" type="month" />
+      <TimeBox title={"This Week"} href="/myPurchase/This-Week" type="week" />
+      <TimeBox title={"This Month"} href="/myPurchase/This-Month" type="month" />
+      <TimeBox title={"Collection"} href="/myPurchase/collection" type="collection" />
     </OptionsContainer>
   );
 };

@@ -10,6 +10,7 @@ html{
 
 .mainContent{
   margin-top: 74.5px;
+  width: 100%;
 }
 
 @media screen and (orientation: landscape){

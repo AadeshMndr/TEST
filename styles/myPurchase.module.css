@@ -1,0 +1,38 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.barGraph{
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.barGraph canvas{
+    height: max-content;
+    width: max-content;
+}
+
+.list{
+  align-self: stretch;
+  width: 100%;
+}
+
+
+@media screen and (orientation: landscape) {
+  /* .layout {
+    flex-direction: row;
+  } */
+
+.barGraph{
+    height: 500px;
+}
+
+.list{
+    align-self: stretch;
+}
+
+}

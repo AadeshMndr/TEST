@@ -64,6 +64,12 @@ const NavBar = () => {
           months[new Date().getMonth()]
         } ${new Date().getFullYear()}`;
 
+        const today = new Date();
+        let sunday = new Date();
+        sunday.setDate(today.getDate() - today.getDay());
+
+        let prevTime = `${months[sunday.getMonth()]} ${sunday.getFullYear()}`;
+
         dispatch(usersActions.setLoadingData(true));
 
         let result = await fetcher({
@@ -74,6 +80,20 @@ const NavBar = () => {
             "Content-Type": "application/json",
           },
         });
+
+        let prevMonthData = [];
+        if (today.getMonth() !== sunday.getMonth()){
+          prevMonthData = await fetcher({
+            URL: "/api/Purchase",
+            method: "PATCH",
+            body: { username: currentUser, time: prevTime },
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
+
+        result = [...result, ...prevMonthData];
 
         dispatch(usersActions.setLoadingData(false));
 

@@ -35,7 +35,8 @@ const usersSlice = createSlice({
           purchase.purchasedOn.year === new Date().getFullYear() &&
           purchase.purchasedOn.month === new Date().getMonth() + 1 &&
           purchase.purchasedOn.day === new Date().getDate() &&
-          purchase.paid === false
+          purchase.paid === false &&
+          purchase.item.price === action.payload.item.price
       );
 
       if (cartItemArray.length === 0) {
@@ -68,6 +69,7 @@ const usersSlice = createSlice({
           purchase.purchasedOn.year === new Date().getFullYear() &&
           purchase.purchasedOn.month === new Date().getMonth() + 1 &&
           purchase.purchasedOn.day === new Date().getDate() &&
+          purchase.item.price === action.payload.item.price &&
           !purchase.paid
       )[0];
 
@@ -89,7 +91,9 @@ const usersSlice = createSlice({
           purchase.sectionName === action.payload.sectionName &&
           purchase.purchasedOn.year === new Date().getFullYear() &&
           purchase.purchasedOn.month === new Date().getMonth() + 1 &&
-          purchase.purchasedOn.day === new Date().getDate();
+          purchase.purchasedOn.day === new Date().getDate() &&
+          !purchase.saved &&
+          !purchase.paid;
 
         if (ok) {
           purchase.item = action.payload.item;
@@ -121,9 +125,9 @@ const usersSlice = createSlice({
           purchase.purchasedOn.month === action.payload.purchasedOn.month &&
           purchase.purchasedOn.day === action.payload.purchasedOn.day;
 
-          if (purchase.saved && purchase.paid){
-            ok = false;
-          }
+        if (purchase.saved && purchase.paid) {
+          ok = false;
+        }
 
         if (ok) {
           purchase.paid = action.payload.pay;
@@ -165,7 +169,7 @@ const usersSlice = createSlice({
         });
       });
     },
-    setLoadingData(state, action){
+    setLoadingData(state, action) {
       state.loadingData = action.payload;
     },
   },
