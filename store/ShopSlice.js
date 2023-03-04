@@ -7,6 +7,7 @@ const ShopSlice = createSlice({
     selectedSection_Name: null,
     items_Info: [],
     selectedItem_Name: null,
+    nameFilter: null,
   },
   reducers: {
     replaceSections(state, action) {
@@ -99,6 +100,13 @@ const ShopSlice = createSlice({
             item_info.itemName === state.selectedItem_Name
           )
       );
+    },
+    filterByName(state, action) {
+      if (action.payload === "") {
+        state.nameFilter = null;
+      } else {
+        state.nameFilter = action.payload;
+      }
     },
   },
 });

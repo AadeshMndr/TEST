@@ -174,7 +174,7 @@ const usersSlice = createSlice({
       state.loadingData = action.payload;
     },
     addToAllData(state, action){
-      state.allData = [...state.allData, ...action.payload];
+      state.allData = [ ...state.allData, ...action.payload];
     },
     clearAllData(state){
       state.allData = [];

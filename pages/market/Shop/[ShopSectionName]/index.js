@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import SearchBar from "@/components/UI/SearchBar";
 import { ShopActions } from "@/store/ShopSlice";
 import useShop from "@/components/hooks/use-shop";
 import { getAll } from "@/components/hooks/use-DB";
@@ -24,6 +25,7 @@ const Section = ({ data }) => {
 
     return(
         <div>
+          <SearchBar />
             {section.items.length > 0 ? <ShopList items={section.items} /> : <p>There are no Items in this section!</p>}
         </div>
     );
