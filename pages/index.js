@@ -77,6 +77,8 @@ const Home = ({ data }) => {
 
         postOneMonthsData();
       });
+    } else if (username && username !== "none" && allData.length !== 0) {
+      setLoadingCount(12);
     }
   }, [username]);
 
