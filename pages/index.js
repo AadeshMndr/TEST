@@ -49,7 +49,7 @@ const Home = ({ data }) => {
 
   useEffect(() => {
 
-    if (username && username !== "none") {
+    if (username && username !== "none" && allData.length === 0) {
       months.forEach((month) => {
         let time = `${month} ${new Date().getFullYear()}`;
 
@@ -72,9 +72,7 @@ const Home = ({ data }) => {
 
           setLoadingCount((preState) => preState + 1);
 
-          allTimeData = [ ...allTimeData, ...data ];
-
-          dispatch(usersActions.setAllData(allTimeData));
+          dispatch(usersActions.addToAllData(data));
         };
 
         postOneMonthsData();
