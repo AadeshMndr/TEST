@@ -1,6 +1,5 @@
-import { useEffect, useState, Fragment } from "react";
+import { Fragment } from "react";
 
-import useHTTP from "../hooks/use-HTTP";
 import BarGraph from "../UI/BarGraph";
 import useUsers from "../hooks/use-users";
 import SectionedPurchaseList from "./SectionedPurchaseList";
@@ -22,47 +21,8 @@ const months = [
   "Dec",
 ];
 
-const AllTimePurchases = () => {
+const AllTimePurchases = ({ allData, loadingCount }) => {
   const { username } = useUsers();
-  const { loading, error, fetcher } = useHTTP();
-  const [allData, setAllData] = useState([]);
-  const [loadingCount, setLoadingCount] = useState(0);
-
-  useEffect(() => {
-    let allTimeData = [];
-
-    if (username) {
-      months.forEach((month) => {
-        let time = `${month} ${new Date().getFullYear()}`;
-
-        if (new Date(time) > new Date()) {
-          time = `${month} ${new Date().getFullYear() - 1}`;
-        }
-
-        const postOneMonthsData = async () => {
-          let data = await fetcher({
-            URL: "/api/Purchase",
-            method: "PATCH",
-            body: {
-              username,
-              time,
-            },
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-
-          allTimeData = [...allTimeData, ...data];
-
-          setLoadingCount((preState) => preState + 1);
-
-          setAllData(allTimeData);
-        };
-
-        postOneMonthsData();
-      });
-    }
-  }, [username]);
 
   let allMonthData = months.map((month) => {
     let eachMonthData = allData.filter(
@@ -134,9 +94,6 @@ const AllTimePurchases = () => {
   };
 
   const datasets = [shopDataset];
-
-  console.log(allData);
-  console.log(loadingCount);
 
   if (username) {
     return (
