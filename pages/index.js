@@ -72,7 +72,9 @@ const Home = ({ data }) => {
 
           setLoadingCount((preState) => preState + 1);
 
-          dispatch(usersActions.addToAllData(data));
+          allTimeData = [ ...allTimeData, ...data ];
+
+          dispatch(usersActions.setAllData(allTimeData));
         };
 
         postOneMonthsData();
