@@ -24,7 +24,6 @@ const ShopList = ({ items: rawItems }) => {
     if (items.length === 0){
       items = rawItems.filter((item) => {
         let itemDescription = item.description.toUpperCase();
-        console.log("ok", itemDescription);
         let uprFilter = nameFilter.toUpperCase();
   
         return itemDescription.includes(uprFilter);
