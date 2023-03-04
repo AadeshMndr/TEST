@@ -71,7 +71,11 @@ const Home = ({ data }) => {
             },
           });
 
+          console.log("Individual Data: ", data);
+
           allTimeData = [...allTimeData, ...data];
+
+          console.log("Grouped Data", allTimeData);
 
           setLoadingCount((preState) => preState + 1);
 
