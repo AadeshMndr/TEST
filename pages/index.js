@@ -86,6 +86,7 @@ const Home = ({ data }) => {
     localStorage.removeItem("username");
     dispatch(usersActions.setCurrentUser("none"));
     dispatch(usersActions.replacePurchases([]));
+    dispatch(usersActions.clearAllData());
 
     router.push("/auth");
   };
