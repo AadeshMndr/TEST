@@ -113,9 +113,9 @@ const PurchaseItem = ({
           <span className={styles.price}>Rs.{price}</span>
           <span className={styles.amount}>x{amount}</span>
         </div>
-        <div className={styles.paybtn} onClick={togglePay}>
+        {!seeOnly && <div className={styles.paybtn} onClick={togglePay}>
           {paid ? <Image src={tickPIC} alt="paid" /> : "pay"}
-        </div>
+        </div>}
       </div>
       <div className={styles.controlsContainer}>
         {control ? (
