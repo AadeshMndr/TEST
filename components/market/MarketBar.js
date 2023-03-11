@@ -3,8 +3,10 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 
+import useUsers from "../hooks/use-users";
 import NavLink from "../UI/NavLink";
 import { ShopActions } from "@/store/ShopSlice";
+import { AUTHS } from "../auth/AuthForm";
 
 import styles from "./MarketBar.module.css";
 
@@ -13,6 +15,7 @@ import backButtonIMG from "@/utils/back-button.png";
 const MarketBar = () => {
   const router = useRouter();
   const url = router.pathname.split("/");
+  const { username } = useUsers();
   const dispatch = useDispatch();
 
   const previousUrl = url
@@ -75,11 +78,11 @@ const MarketBar = () => {
           </NavLink>
         )}
       </div>
-      {lastPartOfUrl === "Shop" || lastPartOfUrl === "addSection" ? (
+      {(lastPartOfUrl === "Shop" || lastPartOfUrl === "addSection") && AUTHS.some( (auth) => auth === username ) ? (
         <NavLink href="/market/Shop/addSection" activeClassName={styles.active}>
           Add Section
         </NavLink>
-      ) : lastPartOfUrl === "[ShopSectionName]" ? (
+      ) : (lastPartOfUrl === "[ShopSectionName]") && AUTHS.some( (auth) => auth === username ) ? (
         <NavLink
           href={`/market/Shop/${router.query.ShopSectionName}/edit`}
           activeClassName={styles.active}
@@ -89,7 +92,7 @@ const MarketBar = () => {
       ) : (
         ""
       )}
-      {lastPartOfUrl === "[ItemName]" ? (
+      {(lastPartOfUrl === "[ItemName]") && AUTHS.some( (auth) => auth === username ) ? (
         <NavLink
           href={`/market/Shop/${router.query.ShopSectionName}/${router.query.ItemName}/editItem`}
           activeClassName={styles.active}

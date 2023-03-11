@@ -47,9 +47,12 @@ const PurchaseItem = ({
 
   let item = {};
   if (sections.length > 0) {
-    item = sections
-      .filter((section) => section.name === sectionName)[0]
-      .items.filter((item) => item.name === name)[0];
+    let section = sections
+    .filter((section) => section.name === sectionName);
+
+    if (section.length > 0){
+      item = section[0].items.filter((item) => item.name === name)[0];
+    }
   }
 
   const addInCart = () => {

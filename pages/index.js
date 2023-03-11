@@ -27,7 +27,7 @@ const months = [
 const Home = ({ data }) => {
   const { username, firstName } = useUsers();
   const router = useRouter();
-  const [loadingCount, setLoadingCount] = useState(0);
+  const [ loadingCount, setLoadingCount ] = useState(0);
   const { fetcher } = useHTTP();
   const  { allData } = useSelector( (state) => state.users );
 

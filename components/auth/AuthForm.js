@@ -4,6 +4,8 @@ import Card from "../UI/Card";
 import useInput from "../hooks/use-input";
 import styles from "./AuthForm.module.css";
 
+export const AUTHS = ["AadeshMndr", "Nira"];
+
 const AuthForm = ({ registerUser, listOfUsernames, loginUser, loginError, isLoading }) => {
   const [isLogin, setIsLogin] = useState(true);
   
